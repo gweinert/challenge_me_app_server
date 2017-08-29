@@ -10,7 +10,7 @@ var upload = multer({limits: { fileSize: maxSize }})
 
 router.get('/', user.all)
 
-router.get('/detail/:id', isAuthenticated, user.detail)
+router.get('/detail/:id', user.detail)
 
 router.post('/bookmark/:id',
     upload.none(),

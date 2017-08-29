@@ -55,8 +55,8 @@ passport.use(new FacebookTokenStrategy({
       function(err, doc) {
         
         if(doc == null) {
-          
-          db.collection('users').insertOne({
+
+          const newUser = {
             _id: profile.id,
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
@@ -66,13 +66,16 @@ passport.use(new FacebookTokenStrategy({
             bookmarkedChallenges: [],
             //replies: [],
             profileImg: profile.photos[0].value
-          }, function(err, r) {
+          }
+          
+          db.collection('users').insertOne(newUser, 
+            function(err, r) {
                 
                 assert.equal(null, err);
                 // req.assert.equal(1, r.matchedCount);
                 // req.assert.equal(1, r.modifiedCount);
 
-                done(err, profile)
+                done(err, newUser)
             
             }
           )

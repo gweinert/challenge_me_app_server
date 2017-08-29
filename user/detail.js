@@ -7,12 +7,10 @@ const detail = module.exports = (req, res, next) => {
     const users     = db.collection('users')
     const { id }    = req.params
     
-    users.findOne({_id: ObjectId(id)})
+    users.findOne({_id: id})
     .then(user => {
 
-        if (user == null) { return res.json({success: 0, err}) }
-        
-        assert.equal(err, null);
+        if (user == null) { return res.json({success: 0, err: "User not found"}) }
         
         res.json({success: 1, data: user})
     
